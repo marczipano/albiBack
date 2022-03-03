@@ -11,7 +11,7 @@ import hu.albi.back.service.SubletService;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/sublets")
 public class SubletController {
@@ -34,7 +34,7 @@ public class SubletController {
         Sublet sublet = subletService.findSubletById(id);
         return new ResponseEntity<>(sublet, HttpStatus.OK);
     }
-
+    
     @PostMapping
     public ResponseEntity<Sublet> addSublet(@Validated @RequestBody Sublet sublet){
         Sublet newSublet = subletService.addSublet(sublet);

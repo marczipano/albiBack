@@ -13,24 +13,24 @@ public class Sublet {
     private Integer sellerId;   // id of seller
     private String address;     // location of sublet
     private Integer size;       // size in m2
-    private Boolean garden;     // has garden or not
+    private Integer garden;     // has garden or not
     private Integer rooms;      // number of rooms
-    private String desc;        // detailed description
+    private String descript;        // detailed description
     private Integer price;      // price in HUF/month
 
     public Sublet(Integer sellerId,
                   String address,
                   Integer size,
-                  Boolean garden,
+                  Integer garden,
                   Integer rooms,
-                  String desc,
+                  String descript,
                   Integer price){
         this.sellerId = sellerId;
         this.address = address;
         this.size = size;
         this.garden = garden;
         this.rooms = rooms;
-        this.desc = desc;
+        this.descript = descript;
         this.price = price;
     }
 
@@ -65,11 +65,11 @@ public class Sublet {
         this.size = size;
     }
 
-    public Boolean getGarden() {
+    public Integer getGarden() {
         return garden;
     }
 
-    public void setGarden(Boolean garden) {
+    public void setGarden(Integer garden) {
         this.garden = garden;
     }
 
@@ -82,11 +82,11 @@ public class Sublet {
     }
 
     public String getDesc() {
-        return desc;
+        return descript;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.descript = desc;
     }
 
     public Integer getPrice() {
@@ -106,7 +106,7 @@ public class Sublet {
                 ", size='" + size + '\'' +
                 ", garden='" + garden + '\'' +
                 ", rooms='" + rooms + '\'' +
-                ", desc='" + desc + '\'' +
+                ", desc='" + descript + '\'' +
                 ", price='" + price + '\'' +
                 "}";
     }
