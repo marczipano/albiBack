@@ -15,6 +15,7 @@ public class Sublet {
     private Integer size;       // size in m2
     private Integer garden;     // has garden or not
     private Integer rooms;      // number of rooms
+    @Column(length = 1024)
     private String descript;        // detailed description
     private Integer price;      // price in HUF/month
 
