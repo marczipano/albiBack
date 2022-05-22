@@ -30,13 +30,10 @@ public class ImageController {
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
-            //storageService.save(file);
             String filename = imageService.save(file);
-            //message = "Uploaded the file successfully: " + file.getOriginalFilename();
-            //return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
             return new ResponseEntity<>(filename, HttpStatus.OK);
         } catch (Exception e) {
-            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            message = "Nem sikerült feltölteni a fájlt: " + file.getOriginalFilename() + "!";
             return new ResponseEntity<>("Error", HttpStatus.OK);
         }
     }

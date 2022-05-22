@@ -44,7 +44,7 @@ public class ImageService {
             Files.copy(file.getInputStream(), this.root.resolve(newname ));
             return newname;
         } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            throw new RuntimeException("Sikertelen mentés. Hiba: " + e.getMessage());
         }
     }
 
