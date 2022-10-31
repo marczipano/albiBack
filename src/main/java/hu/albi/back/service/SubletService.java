@@ -36,7 +36,7 @@ public class SubletService {
     }
 
     private List<SubletInfo> connectSubletInfos(List<Sublet> sublets){
-        List<SubletInfo> subletinfos = new ArrayList<SubletInfo>();
+        List<SubletInfo> subletinfos = new ArrayList<>();
         for(Sublet s : sublets){
             SubletInfo si = new SubletInfo();
 
@@ -51,7 +51,7 @@ public class SubletService {
 
             List<FileInfo> imageinfos = imageRepository.findFileInfoBySubletId(s.getId());
 
-            List<String> images = new ArrayList<String>();
+            List<String> images = new ArrayList<>();
 
             for(FileInfo fi : imageinfos){
                 images.add(fi.getUrl());
@@ -118,8 +118,21 @@ public class SubletService {
     }
 
 
-    public static void deleteSublet(Integer id){
+    public static void deleteSubletByAdmin(Integer id){
         subletRepository.deleteSubletById(id);
+    }
+
+    public static void deleteSubletByUser(Integer id, Integer userId) throws Exception{
+        Sublet result = subletRepository.findSubletById(id);
+        if(result == null){
+            throw new Exception("Hirdetés nem található!");
+        }
+        if(subletRepository.findSubletById(id).getSellerId().equals(userId)){
+            subletRepository.deleteSubletById(id);
+        }
+        else{
+            throw new Exception("Csak saját hirdetést lehet törölni!");
+        }
     }
 
 }

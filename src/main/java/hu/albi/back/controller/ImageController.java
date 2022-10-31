@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import hu.albi.back.payload.response.MessageResponse;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -28,13 +27,12 @@ public class ImageController {
     ImageService imageService;
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        String message = "";
         try {
             String filename = imageService.save(file);
             return new ResponseEntity<>(filename, HttpStatus.OK);
         } catch (Exception e) {
-            message = "Nem sikerült feltölteni a fájlt: " + file.getOriginalFilename() + "!";
-            return new ResponseEntity<>("Error", HttpStatus.OK);
+            String message = "Nem sikerült feltölteni a fájlt: " + file.getOriginalFilename() + "!";
+            return new ResponseEntity<>(message, HttpStatus.OK);
         }
     }
     @GetMapping("/files")

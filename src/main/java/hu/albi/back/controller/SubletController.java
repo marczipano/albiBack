@@ -3,9 +3,11 @@ package hu.albi.back.controller;
 
 import hu.albi.back.model.Sublet;
 import hu.albi.back.model.SubletInfo;
+import hu.albi.back.security.services.UserDetailsImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import hu.albi.back.service.SubletService;
@@ -23,19 +25,6 @@ public class SubletController {
     public SubletController(SubletService subletService){
         this.subletService = subletService;
     }
-
-
-    /*@GetMapping
-    public ResponseEntity<List<Sublet>> getAllSublet(){
-        List<Sublet> sublets = subletService.getSublets();
-        return new ResponseEntity<>(sublets, HttpStatus.OK);
-    }*/
-    /*
-    @GetMapping
-    public ResponseEntity<List<SubletInfo>> getAllSubletInfo(){
-        List<SubletInfo> sublets = subletService.getSubletInfos();
-        return new ResponseEntity<>(sublets, HttpStatus.OK);
-    }*/
 
     @GetMapping
     public ResponseEntity<List<SubletInfo>> getAllSubletInfo(@RequestParam(required = false, defaultValue = "normal") String o){
@@ -62,12 +51,14 @@ public class SubletController {
     }
     
     @PostMapping
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Sublet> addSublet(@Validated @RequestBody Sublet sublet){
         Sublet newSublet = subletService.addSublet(sublet);
         return new ResponseEntity<>(newSublet, HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/{id}/addImages")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Sublet> addImagesToSublet(@PathVariable("id") Integer id, @Validated @RequestBody String[] images){
         subletService.addImagesToSublet(id, images);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -76,9 +67,19 @@ public class SubletController {
     @Transactional
     @DeleteMapping(path = "/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<Sublet> deleteSubletById(@PathVariable("id") Integer id){
-        subletService.deleteSublet(id);
+    public ResponseEntity<Object> deleteSubletById(@PathVariable("id") Integer id, Authentication authentication){
+        if(authentication.getAuthorities().stream().anyMatch(o -> o.getAuthority().equals("ROLE_ADMIN"))){
+            SubletService.deleteSubletByAdmin(id);
+        }
+        else{
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            try {
+                SubletService.deleteSubletByUser(id, userDetails.getId().intValue());
+            }
+            catch (Exception e){
+                return new ResponseEntity<>("{\"message\": \"" + e.getMessage() + "\"}", HttpStatus.UNAUTHORIZED);
+            }
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
