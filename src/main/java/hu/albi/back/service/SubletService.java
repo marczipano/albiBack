@@ -1,5 +1,6 @@
 package hu.albi.back.service;
 
+import hu.albi.back.builder.SubletInfoBuilder;
 import hu.albi.back.model.FileInfo;
 import hu.albi.back.model.Sublet;
 import hu.albi.back.model.SubletInfo;
@@ -20,8 +21,8 @@ public class SubletService {
     private static ImageRepository imageRepository;
 
     public SubletService(SubletRepository subletRepository, ImageRepository imageRepository){
-        this.subletRepository = subletRepository;
-        this.imageRepository = imageRepository;
+        SubletService.subletRepository = subletRepository;
+        SubletService.imageRepository = imageRepository;
     }
 
     @Autowired
@@ -38,35 +39,10 @@ public class SubletService {
 
     private List<SubletInfo> connectSubletInfos(List<Sublet> sublets){
         List<SubletInfo> subletinfos = new ArrayList<>();
+        SubletInfoBuilder builder = new SubletInfoBuilder(subletRepository, imageRepository, userService);
+
         for(Sublet s : sublets){
-            SubletInfo si = new SubletInfo();
-
-            User user = userService.findUserById(Long.valueOf(s.getSellerId()));
-            if(user == null){
-                si.setEmail("hibás adat");
-                si.setPhone("hibás adat");
-            }else {
-                si.setPhone(user.getTel());
-                si.setEmail(user.getEmail());
-            }
-
-            List<FileInfo> imageinfos = imageRepository.findFileInfoBySubletId(s.getId());
-
-            List<String> images = new ArrayList<>();
-
-            for(FileInfo fi : imageinfos){
-                images.add(fi.getUrl());
-            }
-
-            si.setId(s.getId());
-            si.setAddress(s.getAddress());
-            si.setSize(s.getSize());
-            si.setDescript(s.getDesc());
-            si.setRooms(s.getRooms());
-            si.setPrice(s.getPrice());
-            si.setGarden(s.getGarden());
-            si.setImages(images);
-
+            SubletInfo si = builder.build(s);
             subletinfos.add(si);
         }
         return subletinfos;
@@ -135,5 +111,4 @@ public class SubletService {
             throw new Exception("Csak saját hirdetést lehet törölni!");
         }
     }
-
 }
