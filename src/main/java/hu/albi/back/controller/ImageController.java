@@ -1,7 +1,6 @@
 package hu.albi.back.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import hu.albi.back.model.FileInfo;
 import hu.albi.back.service.ImageService;
@@ -14,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)

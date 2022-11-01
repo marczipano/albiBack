@@ -108,7 +108,7 @@ public class ImageService {
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 List<FileInfo> present = imageRepository.findByName(file.getName());
-                if(present.size() < 1){
+                if (present.size() < 1) {
                     if (file.delete()) {
                         System.out.println("Deleted the file from file system: " + file.getName());
                     } else {

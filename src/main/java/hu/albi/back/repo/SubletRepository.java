@@ -17,28 +17,28 @@ public interface SubletRepository extends JpaRepository<Sublet, Integer> {
 
     Sublet findSubletById(Integer id);
 
-    @Query( value = "SELECT * FROM sublet ORDER BY size DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM sublet ORDER BY size DESC", nativeQuery = true)
     List<Sublet> orderSubletBySizeDesc();
 
-    @Query( value = "SELECT * FROM sublet ORDER BY size ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM sublet ORDER BY size ASC", nativeQuery = true)
     List<Sublet> orderSubletBySizeAsc();
 
-    @Query( value = "SELECT * FROM sublet ORDER BY price DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM sublet ORDER BY price DESC", nativeQuery = true)
     List<Sublet> orderSubletByPriceDesc();
 
-    @Query( value = "SELECT * FROM Sublet ORDER BY price ASC ", nativeQuery = true)
+    @Query(value = "SELECT * FROM Sublet ORDER BY price ASC ", nativeQuery = true)
     List<Sublet> orderSubletByPriceAsc();
 
-    @Query( value = "SELECT * FROM sublet WHERE address LIKE %:addr%", nativeQuery = true)
+    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr%", nativeQuery = true)
     List<Sublet> findSubletByAddress(@Param("addr") String addr);
 
-    @Query( value = "SELECT * FROM sublet WHERE garden = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM sublet WHERE garden = 1", nativeQuery = true)
     List<Sublet> findSubletByGarden();
 
-    @Query( value = "SELECT * FROM sublet WHERE garden = 0", nativeQuery = true)
+    @Query(value = "SELECT * FROM sublet WHERE garden = 0", nativeQuery = true)
     List<Sublet> findSubletByNoGarden();
 
-    @Query( value = "SELECT * FROM sublet WHERE seller_id=:id", nativeQuery = true)
+    @Query(value = "SELECT * FROM sublet WHERE seller_id=:id", nativeQuery = true)
     List<Sublet> findSubletByUser(@Param("id") int id);
 
 

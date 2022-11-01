@@ -17,20 +17,20 @@ public class SubletInfoBuilder {
     private static ImageRepository imageRepository;
     private static UserService userService;
 
-    public SubletInfoBuilder(SubletRepository subletRepository, ImageRepository imageRepository, UserService userService){
+    public SubletInfoBuilder(SubletRepository subletRepository, ImageRepository imageRepository, UserService userService) {
         SubletInfoBuilder.subletRepository = subletRepository;
         SubletInfoBuilder.imageRepository = imageRepository;
         SubletInfoBuilder.userService = userService;
     }
 
-    public SubletInfo build(Sublet s){
+    public SubletInfo build(Sublet s) {
         SubletInfo si = new SubletInfo();
 
         User user = userService.findUserById(Long.valueOf(s.getSellerId()));
-        if(user == null){
+        if (user == null) {
             si.setEmail("hibás adat");
             si.setPhone("hibás adat");
-        }else {
+        } else {
             si.setPhone(user.getTel());
             si.setEmail(user.getEmail());
         }
@@ -39,7 +39,7 @@ public class SubletInfoBuilder {
 
         List<String> images = new ArrayList<>();
 
-        for(FileInfo fi : imageinfos){
+        for (FileInfo fi : imageinfos) {
             images.add(fi.getUrl());
         }
 
