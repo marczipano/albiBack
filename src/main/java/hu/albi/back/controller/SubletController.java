@@ -45,8 +45,8 @@ public class SubletController {
     }
 
     @GetMapping(path = "/user/{user}")
-    public ResponseEntity<List<Sublet>> getSubletByUser(@PathVariable("user") Integer userId){
-        List<Sublet> sublets = subletService.getSubletsByUser(userId);
+    public ResponseEntity<List<SubletInfo>> getSubletInfosByUser(@PathVariable("user") Integer userId){
+        List<SubletInfo> sublets = subletService.getSubletInfosByUser(userId);
         return new ResponseEntity<>(sublets, HttpStatus.OK);
     }
     

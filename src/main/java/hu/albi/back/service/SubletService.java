@@ -31,8 +31,9 @@ public class SubletService {
         return subletRepository.findAll();
     }
 
-    public List<Sublet> getSubletsByUser(int userId) {
-        return subletRepository.findSubletByUser(userId);
+    public List<SubletInfo> getSubletInfosByUser(int userId) {
+        List<Sublet> sublets = subletRepository.findSubletByUser(userId);
+        return connectSubletInfos(sublets);
     }
 
     private List<SubletInfo> connectSubletInfos(List<Sublet> sublets){
