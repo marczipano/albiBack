@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import hu.albi.back.repo.SubletRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +96,7 @@ public class SubletService {
     }
 
 
-    public static void deleteSubletByAdmin(Integer id){
+    public static void deleteSublet(Integer id){
         subletRepository.deleteSubletById(id);
     }
 
@@ -105,7 +106,7 @@ public class SubletService {
             throw new Exception("Hirdetés nem található!");
         }
         if(subletRepository.findSubletById(id).getSellerId().equals(userId)){
-            subletRepository.deleteSubletById(id);
+            deleteSublet(id);
         }
         else{
             throw new Exception("Csak saját hirdetést lehet törölni!");

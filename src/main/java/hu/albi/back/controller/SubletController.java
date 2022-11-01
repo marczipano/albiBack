@@ -69,7 +69,7 @@ public class SubletController {
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Object> deleteSubletById(@PathVariable("id") Integer id, Authentication authentication){
         if(authentication.getAuthorities().stream().anyMatch(o -> o.getAuthority().equals("ROLE_ADMIN"))){
-            SubletService.deleteSubletByAdmin(id);
+            SubletService.deleteSublet(id);
         }
         else{
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
