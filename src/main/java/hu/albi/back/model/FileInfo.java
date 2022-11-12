@@ -15,7 +15,7 @@ public class FileInfo {
     private String name;
     private String url;
 
-    public FileInfo(){
+    public FileInfo() {
 
     }
 

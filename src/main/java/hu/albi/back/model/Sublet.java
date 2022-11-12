@@ -1,6 +1,7 @@
 package hu.albi.back.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Sublet {
@@ -9,13 +10,12 @@ public class Sublet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Integer id;
-
     private Integer sellerId;   // id of seller
     private String address;     // location of sublet
     private Integer size;       // size in m2
     private Integer garden;     // has garden or not
     private Integer rooms;      // number of rooms
-    @Column(length = 1024)
+    @Size(max = 1024)
     private String descript;        // detailed description
     private Integer price;      // price in HUF/month
 
@@ -25,7 +25,7 @@ public class Sublet {
                   Integer garden,
                   Integer rooms,
                   String descript,
-                  Integer price){
+                  Integer price) {
         this.sellerId = sellerId;
         this.address = address;
         this.size = size;
@@ -35,7 +35,7 @@ public class Sublet {
         this.price = price;
     }
 
-    public Sublet(){
+    public Sublet() {
     }
 
     public Integer getId() {
@@ -99,8 +99,8 @@ public class Sublet {
     }
 
     @Override
-    public String toString(){
-        return "Sublet{"+
+    public String toString() {
+        return "Sublet{" +
                 "id=" + id +
                 ", sellerId='" + sellerId + '\'' +
                 ", address='" + address + '\'' +

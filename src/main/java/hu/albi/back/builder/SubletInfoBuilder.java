@@ -5,7 +5,6 @@ import hu.albi.back.model.Sublet;
 import hu.albi.back.model.SubletInfo;
 import hu.albi.back.model.User;
 import hu.albi.back.repo.ImageRepository;
-import hu.albi.back.repo.SubletRepository;
 import hu.albi.back.service.UserService;
 
 import java.util.ArrayList;
@@ -13,12 +12,10 @@ import java.util.List;
 
 public class SubletInfoBuilder {
 
-    private static SubletRepository subletRepository;
     private static ImageRepository imageRepository;
     private static UserService userService;
 
-    public SubletInfoBuilder(SubletRepository subletRepository, ImageRepository imageRepository, UserService userService) {
-        SubletInfoBuilder.subletRepository = subletRepository;
+    public SubletInfoBuilder(ImageRepository imageRepository, UserService userService) {
         SubletInfoBuilder.imageRepository = imageRepository;
         SubletInfoBuilder.userService = userService;
     }

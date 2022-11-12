@@ -37,7 +37,7 @@ public class SubletService {
 
     private List<SubletInfo> connectSubletInfos(List<Sublet> sublets) {
         List<SubletInfo> subletinfos = new ArrayList<>();
-        SubletInfoBuilder builder = new SubletInfoBuilder(subletRepository, imageRepository, userService);
+        SubletInfoBuilder builder = new SubletInfoBuilder(imageRepository, userService);
 
         for (Sublet s : sublets) {
             SubletInfo si = builder.build(s);

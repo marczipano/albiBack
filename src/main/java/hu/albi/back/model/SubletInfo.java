@@ -15,8 +15,6 @@ public class SubletInfo {
     private List<String> images;
 
 
-
-
     public String getEmail() {
         return email;
     }
