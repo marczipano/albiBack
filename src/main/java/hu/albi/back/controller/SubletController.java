@@ -27,14 +27,16 @@ public class SubletController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SubletInfo>> getAllSubletInfo(@RequestParam(required = false, defaultValue = "normal") String o) {
-        List<SubletInfo> sublets = subletService.getSubletInfos(o);
+    public ResponseEntity<List<SubletInfo>> getAllSubletInfo() {
+        List<SubletInfo> sublets = subletService.getSubletInfos();
         return new ResponseEntity<>(sublets, HttpStatus.OK);
     }
 
     @GetMapping(path = "/find")
-    public ResponseEntity<List<SubletInfo>> findSubletInfoByAddress(@RequestParam(defaultValue = "") String a) {
-        List<SubletInfo> sublets = subletService.findSubletInfosByAddress(a);
+    public ResponseEntity<List<SubletInfo>> findSubletInfoByAddress(
+            @RequestParam(required = false, defaultValue = "normal") String o,
+            @RequestParam(required = false, defaultValue = "") String a) {
+        List<SubletInfo> sublets = subletService.getSubletInfos(o, a);
         return new ResponseEntity<>(sublets, HttpStatus.OK);
     }
 

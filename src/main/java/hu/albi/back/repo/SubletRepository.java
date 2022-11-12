@@ -17,30 +17,29 @@ public interface SubletRepository extends JpaRepository<Sublet, Integer> {
 
     Sublet findSubletById(Integer id);
 
-    @Query(value = "SELECT * FROM sublet ORDER BY size DESC", nativeQuery = true)
-    List<Sublet> orderSubletBySizeDesc();
+    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr% ORDER BY size DESC", nativeQuery = true)
+    List<Sublet> orderSubletBySizeDesc(@Param("addr") String addr);
 
-    @Query(value = "SELECT * FROM sublet ORDER BY size ASC", nativeQuery = true)
-    List<Sublet> orderSubletBySizeAsc();
+    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr% ORDER BY size ASC", nativeQuery = true)
+    List<Sublet> orderSubletBySizeAsc(@Param("addr") String addr);
 
-    @Query(value = "SELECT * FROM sublet ORDER BY price DESC", nativeQuery = true)
-    List<Sublet> orderSubletByPriceDesc();
+    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr% ORDER BY price DESC", nativeQuery = true)
+    List<Sublet> orderSubletByPriceDesc(@Param("addr") String addr);
 
-    @Query(value = "SELECT * FROM Sublet ORDER BY price ASC ", nativeQuery = true)
-    List<Sublet> orderSubletByPriceAsc();
+    @Query(value = "SELECT * FROM Sublet WHERE address LIKE %:addr% ORDER BY price ASC ", nativeQuery = true)
+    List<Sublet> orderSubletByPriceAsc(@Param("addr") String addr);
 
-    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr%", nativeQuery = true)
-    List<Sublet> findSubletByAddress(@Param("addr") String addr);
+    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr% AND garden = 1", nativeQuery = true)
+    List<Sublet> findSubletByGarden(@Param("addr") String addr);
 
-    @Query(value = "SELECT * FROM sublet WHERE garden = 1", nativeQuery = true)
-    List<Sublet> findSubletByGarden();
-
-    @Query(value = "SELECT * FROM sublet WHERE garden = 0", nativeQuery = true)
-    List<Sublet> findSubletByNoGarden();
+    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr% AND garden = 0", nativeQuery = true)
+    List<Sublet> findSubletByNoGarden(@Param("addr") String addr);
 
     @Query(value = "SELECT * FROM sublet WHERE seller_id=:id", nativeQuery = true)
     List<Sublet> findSubletByUser(@Param("id") int id);
 
+    @Query(value = "SELECT * FROM sublet WHERE address LIKE %:addr% ORDER BY id DESC", nativeQuery = true)
+    List<Sublet> findSubletByAddress(@Param("addr") String addr);
 
     void deleteSubletById(Integer id);
 

@@ -6,6 +6,7 @@ import hu.albi.back.model.Sublet;
 import hu.albi.back.model.SubletInfo;
 import hu.albi.back.repo.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import hu.albi.back.repo.SubletRepository;
 
@@ -47,34 +48,34 @@ public class SubletService {
     }
 
     public List<SubletInfo> getSubletInfos() {
-        List<Sublet> sublets = subletRepository.findAll();
+        List<Sublet> sublets = subletRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         return connectSubletInfos(sublets);
     }
 
-    public List<SubletInfo> getSubletInfos(String command) {
+    public List<SubletInfo> getSubletInfos(String order, String address) {
         List<Sublet> sublets;
-        switch (command) {
+        switch (order) {
             case "priceAsc":
-                sublets = subletRepository.orderSubletByPriceAsc();
+                sublets = subletRepository.orderSubletByPriceAsc(address);
                 break;
             case "priceDesc":
-                sublets = subletRepository.orderSubletByPriceDesc();
+                sublets = subletRepository.orderSubletByPriceDesc(address);
                 break;
             case "sizeAsc":
-                sublets = subletRepository.orderSubletBySizeAsc();
+                sublets = subletRepository.orderSubletBySizeAsc(address);
                 break;
             case "sizeDesc":
-                sublets = subletRepository.orderSubletBySizeDesc();
+                sublets = subletRepository.orderSubletBySizeDesc(address);
                 break;
             case "onlyGarden":
-                sublets = subletRepository.findSubletByGarden();
+                sublets = subletRepository.findSubletByGarden(address);
                 break;
             case "noGarden":
-                sublets = subletRepository.findSubletByNoGarden();
+                sublets = subletRepository.findSubletByNoGarden(address);
                 break;
 
             default:
-                sublets = subletRepository.findAll();
+                sublets = subletRepository.findSubletByAddress(address);
         }
 
         return connectSubletInfos(sublets);
