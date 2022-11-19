@@ -87,7 +87,7 @@ public class ImageService {
     }
 
     public void deleteUnused() {
-        // delete files that are in repositry but not connected to sublets
+        // delete files that are in repository but not connected to sublets
         List<FileInfo> files = imageRepository.getUnusedFiles();
         for (FileInfo fi : files
         ) {

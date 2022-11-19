@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import hu.albi.back.repo.SubletRepository;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,11 +74,9 @@ public class SubletService {
             case "noGarden":
                 sublets = subletRepository.findSubletByNoGarden(address);
                 break;
-
             default:
                 sublets = subletRepository.findSubletByAddress(address);
         }
-
         return connectSubletInfos(sublets);
     }
 
@@ -85,7 +84,6 @@ public class SubletService {
         List<Sublet> sublets = subletRepository.findSubletByAddress(addr);
         return connectSubletInfos(sublets);
     }
-
 
     public Sublet addSublet(Sublet sublet) {
         return subletRepository.save(sublet);
@@ -105,7 +103,6 @@ public class SubletService {
     public Sublet findSubletById(Integer id) {
         return subletRepository.findSubletById(id);
     }
-
 
     public static void deleteSublet(Integer id) {
         subletRepository.deleteSubletById(id);
